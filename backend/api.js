@@ -5,8 +5,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 // Signup
 const signupUser = async (userData) => {
   try {
-    const { data } = await axios.post(`${apiUrl}/user/signup`, userData,{
-      withCredentials:true
+    const { data } = await axios.post(`${apiUrl}/user/signup`, userData, {
+      withCredentials: true
     });
     console.log("Signup Response:", data);
     return data;
@@ -18,8 +18,8 @@ const signupUser = async (userData) => {
 // Login
 const loginUser = async (loginData) => {
   try {
-    const { data } = await axios.post(`${apiUrl}/user/login`, loginData,{
-      withCredentials:true
+    const { data } = await axios.post(`${apiUrl}/user/login`, loginData, {
+      withCredentials: true
     });
     console.log("Login Response:", data);
     return data;
@@ -52,4 +52,15 @@ const logoutUser = async () => {
   }
 };
 
-export { signupUser, loginUser, getUserData , logoutUser};
+const ai = async (prompt) => {
+  try {
+    const res = await axios.post(`${apiUrl}/user/ai`, {prompt}, {
+      withCredentials: true
+    });
+    return res.data;
+  } catch (err) {
+    console.error("Get User Error:", err.response?.data || err.message);
+  }
+}
+
+export { signupUser, loginUser, getUserData, logoutUser, ai };

@@ -11,5 +11,14 @@ const getWorkouts = async () => {
     console.error("Get User Error:", err.response?.data || err.message);
   }
 };
+const getExercise = async(Id)=>{
+    try {
+    const res= await axios.get(`${apiUrl}/workout/getexercise/${Id}`, {withCredentials:true
+    });
+    return res.data;
+  } catch (err) {
+    console.error("Get User Error:", err.response?.data || err.message);
+  }
+}
 
-export { getWorkouts };
+export { getWorkouts ,getExercise};
