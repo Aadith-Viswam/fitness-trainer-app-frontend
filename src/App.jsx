@@ -3,11 +3,15 @@ import LoginPage from "../pages/loginPage";
 import SignupPage from "../pages/signupPage";
 import Main from "../pages/main";
 import Exercises from "../pages/exercise";
+import ProgressExercise from "../pages/progress";
+import { useEffect } from "react";
 
 
 function App() {
-  const isLoggedIn = localStorage.getItem("token");
-
+  let isLoggedIn
+  useEffect(() => {
+    isLoggedIn = localStorage.getItem("token");
+  })
   return (
     <Router>
       <Routes>
@@ -21,9 +25,10 @@ function App() {
         />
         <Route
           path="/"
-          element={<Main/>}
+          element={<Main />}
         />
         <Route path="/exercise/:Id" element={<Exercises />} />
+        <Route path="/progress" element={<ProgressExercise />} />
       </Routes>
     </Router>
   );

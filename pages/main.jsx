@@ -4,7 +4,7 @@ import { ai, getUserData, logoutUser } from "../backend/api";
 import { getWorkouts } from "../backend/exercises";
 import toast, { Toaster } from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
-import { LogOut, Dumbbell, MoveRight, MessageCircle, Send } from "lucide-react";
+import { LogOut, Dumbbell, MoveRight, MessageCircle, Send, ChartArea, BarChart2 } from "lucide-react";
 
 function Navbar({ user, setUser }) {
     const navigate = useNavigate();
@@ -26,15 +26,16 @@ function Navbar({ user, setUser }) {
         }
     };
 
+
     return (
         <motion.nav
             initial={{ y: -60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, type: "spring" }}
             className="fixed w-[66%] top-4 left-1/2 transform -translate-x-1/2 
-                   bg-white/90 backdrop-blur-lg shadow-2xl rounded-full
-                   px-6 py-3 flex items-center justify-between gap-6
-                   max-w-[90%] z-50"
+               bg-white/90 backdrop-blur-lg shadow-2xl rounded-full
+               px-6 py-3 flex items-center justify-between gap-6
+               max-w-[90%] z-50"
         >
             {/* Left: Logo */}
             <div className="flex items-center gap-3">
@@ -42,20 +43,31 @@ function Navbar({ user, setUser }) {
                 <h1 className="text-lg font-bold text-gray-800">Fitness App</h1>
             </div>
 
-            {/* Right: User + Logout */}
+            {/* Right: User + Logout + Progress */}
             <div className="flex items-center gap-4">
                 {user && (
-                    
-                        <span className="text-gray-600 text-sm font-medium truncate max-w-[120px]">
+                    <span className="text-gray-600 text-sm font-medium truncate max-w-[120px]">
                         Hi,&nbsp;
-                    <span className="text-lg text-black font-semibold">{user.name || user.email}</span>
+                        <span className="text-lg text-black font-semibold">{user.name || user.email}</span>
                     </span>
-                    
                 )}
+
+                {/* Progress Button */}
+                <button
+                    onClick={() => navigate("/progress")}
+                    className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white 
+                   rounded-full shadow hover:shadow-lg hover:bg-blue-600 transition-all"
+                    title="View Progress"
+                >
+                    <BarChart2 className="w-5 h-5" />
+                    <span className="text-sm font-medium">My Progress</span>
+                </button>
+
+                {/* Logout Button */}
                 <button
                     onClick={handleLogout}
                     className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white text-sm 
-                         font-semibold rounded-full shadow hover:shadow-lg hover:bg-red-600 transition"
+                 font-semibold rounded-full shadow hover:shadow-lg hover:bg-red-600 transition-all"
                 >
                     <LogOut className="w-4 h-4" /> Logout
                 </button>
@@ -172,7 +184,7 @@ function AIChat() {
         setLoading(true);
 
         try {
-            console.log("Pro:", prompt)
+        
             const response = await ai(prompt); // call backend AI
             setMessages((prev) => [...prev, { type: "ai", text: response.message }]);
         } catch (err) {
@@ -214,7 +226,7 @@ function AIChat() {
                     >
                         {/* Header */}
                         <div className="bg-blue-500 text-white font-bold p-4 flex justify-between items-center">
-                            <span>AI Chat</span>
+                            <span>AI Fitness Chat</span>
                             <button
                                 onClick={() => setIsOpen(false)}
                                 className="text-white hover:text-gray-200"

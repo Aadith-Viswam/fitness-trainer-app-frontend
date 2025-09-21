@@ -11,7 +11,9 @@ import {
     Flag,
     ArrowLeft,
     XCircle,
+    ArrowRight,
 } from "lucide-react";
+import { createprogress } from "../backend/api";
 
 function Exercises() {
     const { Id } = useParams();
@@ -22,6 +24,11 @@ function Exercises() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isRest, setIsRest] = useState(true);
     const [timer, setTimer] = useState(0);
+
+    const handleCompleteWorkout = async () => {
+        
+        return await createprogress(Id, 100);
+    }
 
     // Fetch data
     useEffect(() => {
@@ -102,10 +109,13 @@ function Exercises() {
                 <h1 className="text-4xl font-extrabold">Workout Completed 🎉</h1>
                 <p className="mt-2 text-lg text-gray-600">Awesome job, keep going!</p>
                 <button
-                    onClick={() => navigate(-1)}
+                    onClick={() => {
+                        handleCompleteWorkout()
+                        navigate(-1)
+                    }}
                     className="mt-6 px-6 py-3 bg-blue-500 text-white font-bold rounded-full flex items-center gap-2 hover:bg-blue-400 transition"
                 >
-                    <ArrowLeft className="w-5 h-5" /> Go Back
+                    Continue<ArrowRight className="w-5 h-5" /> 
                 </button>
             </div>
         );
