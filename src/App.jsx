@@ -27,7 +27,7 @@ function App() {
           path="/"
           element={<Main />}
         />
-        <Route path="/exercise/:Id" element={<Exercises />} />
+        <Route path="/exercise/:workoutId" element={<Exercises />} />
         <Route path="/progress" element={<ProgressExercise />} />
       </Routes>
     </Router>
